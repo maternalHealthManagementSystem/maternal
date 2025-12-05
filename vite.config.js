@@ -6,9 +6,5 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/Maternal/',
-  build: {
-    // 設置輸出目錄為 docs
-    outDir: 'docs', 
-  }
+  base: '/maternal/',
 })
