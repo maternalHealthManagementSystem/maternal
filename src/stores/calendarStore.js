@@ -156,7 +156,7 @@ const INITIAL_DIARIES = [
     date: '2025-11-29',
     title: '美食冒險',
     content: '今天突然想吃酸酸甜甜的水果，切了鳳梨和奇異果，滿足了味蕾。',
-    image: 'dist\images\鳳梨奇異果.jpg',
+    image: 'public/images/鳳梨奇異果.jpg',
     createdAt: '2025-11-29T12:45:00Z',
     updatedAt: ''
   },
