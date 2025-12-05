@@ -77,7 +77,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/Maternal/'), //加入儲存庫名稱
+  history: createWebHistory('/maternal/'), //加入儲存庫名稱
   routes,
 });
 
