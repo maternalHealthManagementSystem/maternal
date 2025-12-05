@@ -5,16 +5,10 @@ import vue from '@vitejs/plugin-vue'
 // const repoName = 'MaternalHealthManagementSystem'; 
 
 export default defineConfig({
-  // base: `/${repoName}/`, // <-- 新增此行
-  // plugins: [
-  //   vue(),
-  // ],
   plugins: [vue()],
   base: '/Maternal/',
-  // resolve: {
-  //   alias: {
-  //     // 設置 '@' 別名，指向專案的 'src' 資料夾
-  //     '@': fileURLToPath(new URL('./src', import.meta.url))
-  //   }
-  // }
+  build: {
+    // 設置輸出目錄為 docs
+    outDir: 'docs', 
+  }
 })
