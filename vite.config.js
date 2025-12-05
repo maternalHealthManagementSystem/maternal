@@ -10,7 +10,7 @@ export default defineConfig({
   //   vue(),
   // ],
   plugins: [vue()],
-  base: '/MaternalHealthManagementSystem/',
+  base: '/Maternal/',
   // resolve: {
   //   alias: {
   //     // 設置 '@' 別名，指向專案的 'src' 資料夾
