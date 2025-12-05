@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import login from "../views/login.vue";
 import home from "../views/home.vue";
 import profile from "../views/profile.vue";
@@ -77,7 +77,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory('/MaternalHealthManagementSystem/'), //加入儲存庫名稱
+  history: createWebHistory('/Maternal/'), //加入儲存庫名稱
   routes,
 });
 
