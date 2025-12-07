@@ -1,3 +1,4 @@
+
 <template>
   <AssessmentPanel title="歷史填寫紀錄">  
     <ul v-if="records.length > 0" class="history-list">

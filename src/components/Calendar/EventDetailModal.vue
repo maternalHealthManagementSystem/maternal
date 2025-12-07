@@ -347,7 +347,7 @@ onUnmounted(() => {
   background: white;
   border-radius: 12px;
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -413,7 +413,7 @@ onUnmounted(() => {
 }
 
 .event-title h1 {
-  font-size: 28px;
+  font-size: 24px;
   color: #333;
   margin: 10px 0;
   flex: 1;
@@ -701,77 +701,8 @@ onUnmounted(() => {
   transform: scale(0.9);
 }
 
-/* 平板版（1024px 以下）*/
-@media (max-width: 1024px) {
-  .modal-container {
-    max-width: 700px;
-    border-radius: 10px;
-  }
-
-  .modal-header {
-    padding: 18px;
-  }
-
-  .modal-body {
-    padding: 20px;
-  }
-
-  .event-title h1 {
-    font-size: 20px;
-  }
-  
-  .modal-footer {
-    padding: 20px;
-  }
-
-  .timeline-row {
-    grid-template-columns: 70px 1fr;
-    gap: 10px;
-  }
-
-  .time-label {
-    font-size: 15px;
-  }
-
-  .event-bar-title {
-    font-size: 16px;
-  }
-
-  .event-bar-time {
-    font-size: 16px;
-  }
-}
-
-/* 小平板 / 大手機樣式 (Max-width: 820px) */
-@media (max-width: 820px) {
-  .modal-container {
-    max-width: 85vw;
-  }
-  
-  .modal-body {
-    padding: 20px;
-  }
-
-  .timeline-row {
-    grid-template-columns: 75px 1fr;
-    gap: 10px;
-  }
-
-  .map-container {
-    height: 250px;
-  }
-
-  .event-title h1 {
-    font-size: 26px;
-  }
-
-  .modal-footer {
-    padding: 18px;
-  }
-}
-
-/* 手機版（600px 以下） */
-@media (max-width: 600px) {
+/* iPhne 12 Pro  */
+@media (max-width: 400px){
   .modal-overlay {
     padding: 0; 
   }
@@ -783,30 +714,20 @@ onUnmounted(() => {
   }
   
   .modal-header {
-    padding: 15px;
+    padding: 18px;
   }
 
   .modal-title {
     font-size: 110%; 
   }
-
-  .modal-body {
-    padding: 15px;
-  }
-
-  .event-title {
-    flex-wrap: wrap; 
-  }
   
   .event-title h1 {
-    font-size: 24px; 
-    margin: 8px 0;
-    order: 1; 
+    font-size: 22px; 
+     
   }
   
   .event-type-badge {
-    font-size: 15px;
-    order: 2; 
+    font-size: 13px; 
   }
 
   .detail-item {
@@ -817,8 +738,11 @@ onUnmounted(() => {
     font-size: 16px;
   }
   
-  .detail-content {
-    font-size: 14px;
+  .detail-content,
+  .date-text,
+  .time-range span,
+  .description-text {
+    font-size: 16px;
   }
 
 
@@ -828,24 +752,181 @@ onUnmounted(() => {
   }
   
   .time-label {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .map-container {
-    height: 200px;
+    height: 220px;
   }
 
   .modal-footer {
     flex-direction: column;
     gap: 8px; 
-    padding: 10px 15px;
   }
   
   .btn-delete,
   .btn-edit {
-    padding: 10px; 
-    font-size: 14px;
+    font-size: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+  .event-block-container{
+    left: 80px;
+    width: 270px;
   }
 }
 
+/* iPhne 14 Pro Max */
+@media(min-width: 400px) and (max-width: 450px){
+  .modal-overlay {
+    padding: 0; 
+  }
+  
+  .modal-container {
+    max-width: 500px; 
+    max-height: 100vh; 
+    border-radius: 0;
+  }
+  
+  .modal-header {
+    padding: 22px;
+  }
+
+  .modal-title {
+    font-size: 130%; 
+  }
+  
+  .event-title h1 {
+    font-size: 25px; 
+     
+  }
+  
+  .event-type-badge {
+    font-size: 15px; 
+  }
+
+  .detail-item {
+    margin-bottom: 20px;
+  }
+  
+  .detail-label {
+    font-size: 18px;
+  }
+  
+  .detail-content,
+  .date-text,
+  .time-range span,
+  .description-text {
+    font-size: 17px;
+  }
+
+
+  .timeline-row {
+    grid-template-columns: 60px 1fr;
+    gap: 10px;
+  }
+  
+  .time-label {
+    font-size: 12px;
+  }
+
+  .map-container {
+    height: 220px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 8px; 
+  }
+  
+  .btn-delete,
+  .btn-edit {
+    font-size: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+  .event-block-container{
+    left: 80px;
+    width: 300px;
+  }
+}
+
+/* iPad Air*/
+@media (min-width: 750px) and (max-width: 820px){
+  .modal-overlay {
+    padding: 0; 
+  }
+  
+  .modal-container {
+    max-width: 630px; 
+    max-height: 85vh; 
+    border-radius: 10px;
+  }
+  
+  .modal-header {
+    padding: 25px;
+  }
+
+  .modal-title {
+    font-size: 150%; 
+  }
+  
+  .event-title h1 {
+    font-size: 27px; 
+     
+  }
+  
+  .event-type-badge {
+    font-size: 17px; 
+  }
+
+  .detail-item {
+    margin-bottom: 20px;
+  }
+  
+  .detail-label {
+    font-size: 22px;
+  }
+  
+  .detail-content,
+  .date-text,
+  .time-range span,
+  .description-text,
+  .location-info span {
+    font-size: 20px;
+  }
+
+
+  .timeline-row {
+    grid-template-columns: 60px 1fr;
+    gap: 10px;
+  }
+  
+  .time-label {
+    font-size: 15px;
+  }
+
+  .map-container {
+    height: 250px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 8px; 
+  }
+  
+  .btn-delete,
+  .btn-edit {
+    font-size: 20px;
+    justify-content: center;
+    text-align: center;
+  }
+  .event-block-container{
+    left: 80px;
+    width: 500px;
+  }
+  .timeline-title{
+    font-size: 18px;
+  }
+}
 </style>
