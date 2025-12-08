@@ -67,6 +67,7 @@ defineProps({
   flex-grow: 1;
   overflow-y: auto;
   padding-right: 10px;
+  padding-left: 10px;
   max-height: 600px;
   /* 自訂捲軸 */
   scrollbar-width: thin;
@@ -97,10 +98,6 @@ defineProps({
 
   .subtitle {
     font-size: 14px;
-  }
-
-  .scroll-content {
-    padding-right: 5px; /* 稍微減少右側留白 */
   }
 }
 </style>
