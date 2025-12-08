@@ -1,3 +1,4 @@
+
 <template>
     <AssessmentPanel title="孕婦產前健康照護衛教指導紀錄表" subtitle="( 適用週數：第 29 週 ~ 第 40 週 )">
         <AssessmentProgressBar :completionRate="completionRate" />
@@ -345,7 +346,7 @@ const closeModal = () => {
 /* Form Card */
 .form-card {
   background-color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 20px;
   display: flex;
   overflow: hidden;
@@ -378,7 +379,7 @@ const closeModal = () => {
 .col-12 { width: 100%; } /* 新增 Full Width 樣式 */
 
 .form-group label { display: block; margin-bottom: 5px; color: #444; font-size: 14px; font-weight: bold; }
-.form-group input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+.form-group input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;}
 
 /* Questions */
 .question-item { margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
@@ -532,14 +533,6 @@ const closeModal = () => {
     flex-wrap: wrap; /* 允許輸入框換行，避免手機版跑版 */
 }
 
-/* RWD */
-@media (max-width: 768px) {
-  .row { flex-direction: column; gap: 0; }
-  .history-grid { grid-template-columns: 1fr; }
-  .card-label { width: 100%; height: 40px; writing-mode: horizontal-tb; border-right: none; border-bottom: 1px solid #e2e8f0; }
-  .form-card { flex-direction: column; }
-}
-
 /* --- 彈窗內容樣式 --- */
 /* 全螢幕遮罩 */
 .modal-overlay {
@@ -619,5 +612,89 @@ const closeModal = () => {
     font-weight: bold;
     margin: 0;
     letter-spacing: 1px;
+}
+
+/* --- 平板 (iPad Air, 1024px 以下) --- */
+@media (max-width: 1024px) {
+  .card-body {
+    padding: 20px; /* 稍微縮小內距 */
+  }
+}
+
+/* --- 手機版 (iPhone 12/14 Pro Max, 768px 以下) --- */
+@media (max-width: 768px) {
+  /* 1. 卡片佈局重組：左標題變上標題 */
+  .form-card {
+    flex-direction: column; /* 改為垂直排列 */
+  }
+
+  .card-label {
+    width: 100%;       /* 寬度滿版 */
+    height: auto;      /* 高度自動 */
+    writing-mode: horizontal-tb; /* 文字改為橫書 */
+    flex-direction: row; /* 內容橫向排列 */
+    justify-content: flex-start; /* 靠左對齊 */
+    padding: 12px 20px;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+
+  /* 2. 輸入框 Grid 堆疊 */
+  .row {
+    flex-direction: column; /* 雙欄變單欄 */
+    gap: 15px;
+  }
+  
+  .col-6 {
+    width: 100%; /* 確保滿版 */
+  }
+  
+  /* 增加輸入框高度，方便手指點擊 */
+  .form-group input {
+    padding: 12px; 
+  }
+
+  /* 3. 醫療史與 Checkbox */
+  .history-grid {
+    grid-template-columns: 1fr; /* 改為單欄，避免 Checkbox 文字擠壓 */
+    gap: 12px;
+  }
+  
+  /* 讓「其他」輸入框在手機上換行顯示，避免寬度不足 */
+  .check-label {
+    flex-wrap: wrap; 
+  }
+  .inline-input {
+    width: 100%; /* 輸入框滿版 */
+    margin-left: 0;
+    margin-top: 5px;
+    border-bottom: 1px dashed #94a3b8;
+  }
+
+  /* 4. Radio Button 優化 */
+  .radio-group {
+    gap: 15px;
+  }
+  .radio-group label {
+    width: 100%; /* 選項佔滿一行，避免誤觸 */
+    padding: 5px 0;
+  }
+
+  /* 5. 衛教指導 */
+  .edu-item-row {
+    padding-bottom: 20px;
+  }
+  .edu-radio-group {
+    justify-content: flex-start;
+    gap: 40px; /* 拉大「清楚/不清楚」的間距 */
+  }
+  
+  /* 彈窗微調 */
+  .modal-box {
+    width: 85%; /* 手機上不設固定寬度，改百分比 */
+    padding: 30px 20px;
+  }
 }
 </style>

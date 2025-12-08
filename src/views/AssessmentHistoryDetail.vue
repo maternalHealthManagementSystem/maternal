@@ -7,11 +7,10 @@
     <div v-else class="detail-container">
       
       <div class="meta-header">
-        <div>
+        <div class="header-content">
           <h2 class="record-title">{{ record.title }}</h2>
           <span class="record-date">填寫時間：{{ formatTime(record.id) }}</span>
         </div>
-        <button class="back-btn" @click="router.back()">返回列表</button>
       </div>
 
       <div v-if="record.type === 'depression'" class="depression-detail">
@@ -133,6 +132,10 @@
 
       </div>
 
+      <div class="footer-action">
+        <button class="back-btn" @click="router.back()">返回</button>
+      </div>
+
     </div>
   </AssessmentPanel>
 </template>
@@ -205,8 +208,28 @@ onMounted(() => {
 .meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
 .record-title { margin: 0; color: #2c3e50; font-size: 20px; }
 .record-date { color: #7f8c8d; font-size: 14px; }
-.back-btn { background: #95a5a6; color: white; border: none; padding: 6px 16px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
-.back-btn:hover { background: #7f8c8d; }
+.footer-action {
+  text-align: right;
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #cbd5e0;
+}
+
+.back-btn {
+  background-color: #5a6b7c;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #3498db;
+}
+
 
 /* 統一的卡片樣式 */
 .form-card { 
@@ -296,19 +319,75 @@ onMounted(() => {
 .edu-status-tag { flex-shrink: 0; }
 
 .status-badge {
-  display: inline-block; padding: 4px 12px; border-radius: 20px;
+  display: inline-block; padding: 4px 3px; border-radius: 20px;
   font-size: 13px; color: white; font-weight: 500; min-width: 60px; text-align: center;
 }
 .bg-blue { background-color: #3498db; }
 .bg-red { background-color: #e85d44; }
 
-/* RWD */
+/* =========================================
+   iPad Air & Tablet (寬度 <= 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+  .card-body { padding: 20px; }
+}
+
+/* =========================================
+   iPhone 12/14 Pro/Max (手機版 <= 768px)
+   ========================================= */
 @media (max-width: 768px) {
-  .result-summary { flex-direction: column; text-align: center; }
+  .detail-container { padding-bottom: 30px; }
+
+  /* Header 改為垂直排列 */
+  .meta-header { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 15px; 
+  }
+  .record-title { font-size: 20px; }
+  .back-btn { align-self: flex-start; width: 100%; text-align: center; }
+
+  /* 卡片改為垂直堆疊 (上標題、下內容) */
   .form-card { flex-direction: column; }
-  .card-label { width: 100%; height: 35px; writing-mode: horizontal-tb; letter-spacing: 0; }
-  .info-grid { grid-template-columns: 1fr; }
-  .readonly-list label { display: block; margin-bottom: 3px; }
-  .sub-list { margin-left: 0; }
+  
+  .card-label { 
+    width: 100%; 
+    height: auto; 
+    writing-mode: horizontal-tb; /* 改橫書 */
+    flex-direction: row; 
+    justify-content: flex-start;
+    padding: 12px 20px; 
+    border-right: none; 
+    border-bottom: 1px solid #e2e8f0;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+  
+  .card-body { padding: 20px; }
+
+  /* 愛丁堡結果摘要：垂直堆疊 */
+  .result-summary { 
+    flex-direction: column; 
+    text-align: center; 
+    padding: 30px 20px;
+  }
+  .feedback-box h4 { text-align: center; margin-top: 10px;}
+  .feedback-box p { text-align: left; }
+
+  /* 資訊 Grid 改單欄 */
+  .info-grid { grid-template-columns: 1fr; gap: 12px; }
+  
+  /* 健康行為列表優化 */
+  .readonly-list label { display: block; margin-bottom: 4px; color: #64748b; font-size: 14px;}
+  .sub-list { margin-left: 0; background-color: #f1f5f9; }
+
+  /* 衛教指導優化 */
+  .edu-detail-row {
+    flex-direction: column; /* 題目與標籤垂直排列 */
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .edu-question-text { padding-right: 0; }
+  .edu-status-tag { align-self: flex-end; /* 標籤靠右下 */ }
 }
 </style>

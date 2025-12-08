@@ -72,4 +72,3 @@ const filterContent = () => {
   height: 18px;
 }
 </style>
-

@@ -30,9 +30,10 @@ import AssessmentPanel from '../components/AssessmentPanel.vue';
 .info-card {
   background-color: white;
   padding: 25px;
-  border-radius: 4px;
+  border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* 輕微陰影 */
+  border: 1px solid #f1f5f9;
 }
 
 .info-card h3 {
@@ -40,6 +41,9 @@ import AssessmentPanel from '../components/AssessmentPanel.vue';
   color: #333;
   font-size: 18px;
   margin-bottom: 15px;
+  border-left: 4px solid #57aee2;
+  padding-left: 12px;
+  line-height: 1.4;
 }
 
 .card-content {
@@ -47,5 +51,26 @@ import AssessmentPanel from '../components/AssessmentPanel.vue';
   line-height: 1.8;
   font-size: 15px;
   text-align: justify; /* 文字左右對齊 */
+}
+
+/* --- RWD 調整 --- */
+@media (max-width: 768px) {
+  .info-card {
+    padding: 20px; /* 手機版內距縮小 */
+    margin-bottom: 15px;
+  }
+
+  .info-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    padding-left: 10px;
+    border-left-width: 3px;
+  }
+
+  .card-content {
+    font-size: 15px; /* 手機上 15px 是很舒服的大小 */
+    line-height: 1.6;
+    text-align: left; /* 手機版有時候靠左對齊比左右對齊好看(避免文字間距過大) */
+  }
 }
 </style>

@@ -137,8 +137,11 @@ const handleSearch = (key) => {
 
 h2 {
   font-size: 28px;
-  color: #3b4a5a;
+  color: #2c3e50;
   font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
 /* 主佈局：Flexbox 左右分割 */
@@ -195,6 +198,7 @@ h2 {
   /* 自訂捲軸樣式 (Chrome/Safari) */
   scrollbar-width: thin;
   scrollbar-color: #ccc #f0f0f0;
+  box-sizing: border-box;
 }
 
 .scroll-box::-webkit-scrollbar {
@@ -229,6 +233,7 @@ h2 {
   display: flex;
   align-items: center;
   transition: color 0.2s;
+  display: block; /* 讓整行可點 */
 }
 
 .resource-link:hover {
@@ -308,6 +313,13 @@ h2 {
     gap: 20px; /* 縮小左右間距 */
   }
 
+  .page-header h2 {
+    white-space: nowrap; /* 強制文字不換行 */
+    flex-shrink: 0;      /* 防止標題被右邊的搜尋框擠壓收縮 */
+    font-size: 24px;     /* 稍微縮小字體，讓空間更餘裕 */
+    margin-right: 20px;  /* 確保跟搜尋框保持距離 */
+  }
+
   .sidebar {
     width: 180px; /* 稍微縮小側邊欄 */
   }
@@ -322,6 +334,7 @@ h2 {
   .postpartum-page {
     width: 100%;
     padding: 15px 10px;
+    box-sizing: border-box;
   }
 
   /* Header 垂直排列 */
@@ -354,6 +367,16 @@ h2 {
     padding: 15px;
     background-color: #eef3f7;
     border-radius: 8px;
+  }
+
+  .toc-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 一行兩個 */
+    gap: 10px; /* 按鈕之間的間距 */
+  }
+  
+  .toc-container li {
+    margin: 0;
   }
 
   /* 內容區塊調整 */
