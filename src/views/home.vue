@@ -8,7 +8,10 @@
             你的寶寶大約和 <strong>{{ currentData.name }}</strong> 一樣大
           </p>
 
-          <div class="baby-size-info"  v-if="currentData.length || currentData.weight">
+          <div
+            class="baby-size-info"
+            v-if="currentData.length || currentData.weight"
+          >
             <p class="size-item">
               <span class="label">平均長度:</span>
               <strong>{{ currentData.length }}</strong>
@@ -38,7 +41,7 @@
 
       <div class="right-panel">
         <div class="calendar-section">
-          <EventCalendar 
+          <EventCalendar
             :events="allEvents"
             @dayClick="handleDayClick"
             @monthChange="handleMonthChange"
@@ -49,7 +52,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- 行程詳細資訊彈窗 -->
   <EventDetailModal
     :show="showEventDetail"
@@ -77,19 +80,17 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'; 
-import { useRouter } from 'vue-router'; 
-import EventCalendar from '../components/Calendar/EventCalendar.vue';
-import EventDetailModal from '../components/Calendar/EventDetailModal.vue';
-import EventAddForm from '../components/Calendar/EventAddForm.vue'; 
-import DiaryDetailModal from '../components/Calendar/DiaryDetailModal.vue';
-import { useCalendarStore } from '../../stores/calendarStore.js' // 使用相對路徑避免別名問題
-import dayjs from 'dayjs';
-
+import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import EventCalendar from "../components/Calendar/EventCalendar.vue";
+import EventDetailModal from "../components/Calendar/EventDetailModal.vue";
+import EventAddForm from "../components/Calendar/EventAddForm.vue";
+import DiaryDetailModal from "../components/Calendar/DiaryDetailModal.vue";
+import { useCalendarStore } from "../../stores/calendarStore.js"; // 使用相對路徑避免別名問題
+import dayjs from "dayjs";
 
 const calendarStore = useCalendarStore();
-const router = useRouter(); 
-
+const router = useRouter();
 
 // 彈窗狀態
 const showEventDetail = ref(false);
@@ -100,7 +101,7 @@ const defaultAddDate = ref("");
 // 選中的事件
 const selectedEvent = ref({});
 
-// 選中的日記 
+// 選中的日記
 const selectedDiary = ref({});
 
 // --- Computed ---
@@ -114,92 +115,91 @@ onMounted(() => {
 
 // 處理日曆事件點擊
 function handleEventClick(event) {
-  console.log('Home Page: Event Clicked', event);
+  console.log("Home Page: Event Clicked", event);
 
   if (event.isDiary) {
-  // 必須從 Store 中找到最新的完整日記資料，因為 event 可能是合併後的簡化版
-  const fullDiary = calendarStore.diaries.find(d => d.id === event.id);
-  selectedDiary.value = { ...fullDiary };
-  showDiaryDetail.value = true;
+    // 必須從 Store 中找到最新的完整日記資料，因為 event 可能是合併後的簡化版
+    const fullDiary = calendarStore.diaries.find((d) => d.id === event.id);
+    selectedDiary.value = { ...fullDiary };
+    showDiaryDetail.value = true;
   } else {
-  // 點擊行程：顯示行程詳細資訊彈窗
-  selectedEvent.value = { ...event };
-  showEventDetail.value = true;
+    // 點擊行程：顯示行程詳細資訊彈窗
+    selectedEvent.value = { ...event };
+    showEventDetail.value = true;
   }
 }
 
 // 關閉行程詳細資訊視窗
 function closeEventDetail() {
- showEventDetail.value = false;
+  showEventDetail.value = false;
 }
 
 // 關閉日記詳細資訊視窗
 function closeDiaryDetail() {
- showDiaryDetail.value = false;
+  showDiaryDetail.value = false;
 }
 
 // 處理新增行程按鈕點擊
 function handleAddEvent() {
-  console.log('開啟新增行程表單');
-  defaultAddDate.value = dayjs().format('YYYY-MM-DD');
+  console.log("開啟新增行程表單");
+  defaultAddDate.value = dayjs().format("YYYY-MM-DD");
   showAddForm.value = true;
 }
 
 // 處理新增新行程
 function handleAddNewEvent(newEvent) {
-  console.log('Home Page - 新增行程:', newEvent);
-  calendarStore.addEvent(newEvent); 
+  console.log("Home Page - 新增行程:", newEvent);
+  calendarStore.addEvent(newEvent);
   showAddForm.value = false;
 }
 
 // 處理刪除事件 (行程)
 function handleDeleteEvent(eventId) {
-  console.log('Home Page - 刪除事件 ID:', eventId);
-  calendarStore.deleteEvent(eventId); 
+  console.log("Home Page - 刪除事件 ID:", eventId);
+  calendarStore.deleteEvent(eventId);
   showEventDetail.value = false;
-  alert('行程已刪除');
+  alert("行程已刪除");
 }
 
-// 處理刪除日記 
+// 處理刪除日記
 function handleDeleteDiary(diaryId) {
-  console.log('Home Page - 刪除日記 ID:', diaryId);
+  console.log("Home Page - 刪除日記 ID:", diaryId);
   calendarStore.deleteDiary(diaryId);
   showDiaryDetail.value = false;
-  alert('日記已刪除');
+  alert("日記已刪除");
 }
 
 // 處理編輯行程 - 導航
 function handleEditEvent(event) {
- console.log('Home Page - 編輯行程，導航至 PregnancyDiary');
- showEventDetail.value = false;
- router.push({ 
-   name: 'PregnancyDiary', 
-   query: { 
-   editEventId: event.id 
-    } 
+  console.log("Home Page - 編輯行程，導航至 PregnancyDiary");
+  showEventDetail.value = false;
+  router.push({
+    name: "PregnancyDiary",
+    query: {
+      editEventId: event.id,
+    },
   });
 }
 
-// 處理編輯日記 - 導航 
+// 處理編輯日記 - 導航
 function handleEditDiary(diary) {
- console.log('Home Page - 編輯日記，導航至 PregnancyDiary');
- showDiaryDetail.value = false;
- router.push({ 
-   name: 'PregnancyDiary', 
-   query: { 
-   editDiaryId: diary.id, // 使用不同的參數名稱區分行程和日記
-   date: diary.date
-    } 
+  console.log("Home Page - 編輯日記，導航至 PregnancyDiary");
+  showDiaryDetail.value = false;
+  router.push({
+    name: "PregnancyDiary",
+    query: {
+      editDiaryId: diary.id, // 使用不同的參數名稱區分行程和日記
+      date: diary.date,
+    },
   });
 }
 
-
-// 只需要處理日曆需要的回調 
-function handleDayClick(day) { 
-  console.log('Home Page - Date Clicked:', day.fullDate);
+// 只需要處理日曆需要的回調
+function handleDayClick(day) {
+  console.log("Home Page - Date Clicked:", day.fullDate);
 }
-function handleMonthChange(month) { 
-  console.log('Home Page - Month Changed:', month);
+function handleMonthChange(month) {
+  console.log("Home Page - Month Changed:", month);
 }
 
 const BASE_URL = import.meta.env.BASE_URL;
@@ -259,8 +259,7 @@ const babySizeMap = {
     img: `${BASE_URL}fruitimg/greenmango.png`, // 沿用
     length: "6.1 cm (頭臀長 CRL)",
     weight: "8~14 g",
-  },
-  // --- 懷孕中期 (CHL / 總身長) ---
+  }, // --- 懷孕中期 (CHL / 總身長) ---
   13: {
     name: "百香果",
     img: "https://i.imgur.com/zKAwx04.png", // 沿用
@@ -350,8 +349,7 @@ const babySizeMap = {
     img: "https://i.imgur.com/fj0sYw1.png", // 沿用
     length: "24.0 cm (總身長約34.0 cm)",
     weight: "1000 g (1 公斤)",
-  },
-  // --- 懷孕後期 (總身長) ---
+  }, // --- 懷孕後期 (總身長) ---
   28: {
     name: "大頭菜",
     img: "https://i.imgur.com/cTIX3HH.png", // 沿用
@@ -456,7 +454,7 @@ onMounted(() => {
 
 <style scoped>
 .maternal-dashboard {
-  padding: 20px;
+  padding: 10px;
   background-color: #f8f9fa;
   min-height: calc(100vh - 60px);
   display: flex;
@@ -477,7 +475,7 @@ onMounted(() => {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* --- 左側面板樣式 --- */
@@ -486,23 +484,21 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 600px;
+  min-height: 600px; /* min-height 確保高度，但允許內容超出 */
   padding: 20px 10px 20px 10px;
   flex-grow: 1;
 }
 
-.image-placeholder {
-  /* 讓圖、文字和尺寸資訊區塊都能垂直居中 */
-  flex-grow: 1;
-  width: fit-content;
+.image-placeholder { 
+  flex-grow: 0; 
+  width: 100%;
   display: flex;
   flex-direction: column; /* 垂直排列子元素 */
   justify-content: center;
   align-items: center;
   background-color: none;
   border-radius: 15px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 0; /* 確保底部沒有多餘的邊距推開 pregnancy-tracker */
 }
 
 .placeholder-icon {
@@ -516,8 +512,6 @@ onMounted(() => {
   font-size: 28px;
   font-weight: 500;
   color: #333;
-  margin-bottom: 10px;
-  
 }
 
 .divider {
@@ -527,7 +521,6 @@ onMounted(() => {
 
 .week-day-text {
   border-bottom: 2px solid #006aa8; /* 底部綠色線條 */
-
 }
 
 /* 寶寶尺寸資訊區塊的樣式 */
@@ -546,7 +539,7 @@ onMounted(() => {
 .size-item {
   margin: 0;
   display: flex;
-  justify-content:flex-start; /* 文字靠左 */
+  justify-content: flex-start; /* 文字靠左 */
   align-items: center;
   width: 100%;
 }
@@ -564,10 +557,8 @@ onMounted(() => {
 
 /* 水果示意圖 */
 .baby-fruit-img {
-  width:fit-content;
-  height:fit-content;
-  object-fit: contain;
-  border-radius: 15px;
+  max-width: 100%;
+  height: auto;
 }
 
 .fruit-text {
@@ -594,8 +585,8 @@ onMounted(() => {
 .calendar-section {
   flex: 1;
   width: 100%;
-  min-width: 0; /* ⬅⬅⬅ 讓手機可縮小 */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
 }
 
@@ -613,64 +604,52 @@ onMounted(() => {
   font-style: italic;
 }
 
-/* ======================== */
-/* 📱 手機版（寬度 ≤ 480px） */
-/* ======================== */
-@media (max-width: 850px) {
-  .maternal-dashboard {
-    padding: 10px;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* 讓 padding 和 border 包含在 width 內 */
+}
 
+/* =====================================
+   📱 手機版：< 768px  → 上下排列
+===================================== */
+@media (max-width: 768px) {
   .main-content-container {
     flex-direction: column;
     gap: 15px;
   }
 
-  /* 確保左右面板在小螢幕上都佔滿 100% 寬度 */
-  .left-panel {
-    /* 核心調整 */
-    width: 92%; 
-    height: auto; /* 讓高度隨著內容自動調整 */
-    padding: 15px;
-    order: 1; /* 確保左面板在上方 */
-  }
-
+  .left-panel,
   .right-panel {
-    /* 核心調整 */
-    width: 100%; 
+    width: 100%;
+    padding: 15px;
+  }
+
+  .left-panel {
     height: auto;
-    padding: 0; /* right-panel 內層的 calendar-section 已經有 padding */
-    order: 2; /* 確保右面板在下方 */
-  }
-
-  /* 調整左側內容 */
-  .fruit-text {
-    font-size: 16px;
-    margin-top: 10px;
-  }
-
-  .baby-size-info {
-    font-size: 14px;
-    max-width: 90%; /* 在小螢幕上可以稍微放大一點 */
-    width: 90%;
   }
 
   .baby-fruit-img {
-    /* 限制圖片最大寬度，避免過大 */
-    max-width: 90%;
+    width: 130px;
     height: auto;
+  }
+
+  .fruit-text {
+    font-size: 18px;
   }
 
   .pregnancy-tracker {
     font-size: 22px;
-    margin-top: 10px;
-    margin-bottom: 15px;
   }
 
-  /* 調整右側日曆區塊 */
-  .calendar-section {
+  .baby-size-info {
     width: 100%;
-    /* 移除 min-width 限制 */
+    max-width: 100%; /* 讓它不要比 panel 還大 */
+  }
+
+  .calendar-section {
+    padding: 0;
+    box-shadow: none;
   }
 
   .calendar-section > * {
@@ -678,25 +657,55 @@ onMounted(() => {
   }
 }
 
-
-/* -------------------------------------
-   💻 大螢幕/桌機 (1025px 以上)
-------------------------------------- */
-@media (min-width: 1025px) {
-  /* 恢復左右佈局 */
+/* =====================================
+   📟 平板版：768px ~ 1180px → 上下排列
+===================================== */
+@media (min-width: 768px) and (max-width: 1180px) {
   .main-content-container {
-    flex-direction: row;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
   }
 
   .left-panel {
-    height: 600px; /* 恢復桌面固定高度 */
-    width: initial;
+    height: auto;
+    padding: 20px;
   }
 
-  .right-panel {
-    height: 600px; /* 讓右側高度與左側對齊 */
-    width: initial;
+  .baby-fruit-img {
+    width: 170px;
+    height: auto;
+  }
+
+  .fruit-text {
+    font-size: 20px;
+  }
+
+  .pregnancy-tracker {
+    font-size: 26px;
+  }
+
+  .calendar-section > * {
+    padding: 15px;
   }
 }
+@media (max-width: 1180px) {
+  .left-panel {
+    min-height: auto !important;
+    justify-content: flex-start; 
+    gap: 20px; /* 讓元素保持間距但不撐開 */
+  }
+
+  .image-placeholder {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+
 
 </style>
